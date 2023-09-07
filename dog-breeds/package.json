@@ -2,6 +2,7 @@
   "name": "dog-breeds",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://dog.ceo",
   "dependencies": {
     "@react-buddy/ide-toolbox": "^2.4.0",
     "@testing-library/jest-dom": "^5.17.0",

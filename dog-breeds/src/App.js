@@ -1,6 +1,5 @@
-// App.js
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import Register from './Register';
 import Login from './Login';
 import SearchBar from './SearchBar';
 import RandomBreedButton from './RandomBreedButton';
@@ -10,14 +9,19 @@ import { Container, LogoutButton } from './styles';
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
-    const caughtBreeds = useSelector((state) => state.caughtBreeds);
+    const [registering, setRegistering] = useState(true);
 
     const handleLogout = () => {
+        localStorage.removeItem('token');
         setLoggedIn(false);
     };
 
     if (!loggedIn) {
-        return <Login onLogin={() => setLoggedIn(true)} />;
+        return registering ? (
+            <Register onRegister={() => setRegistering(false)} />
+        ) : (
+            <Login onLogin={() => setLoggedIn(true)} />
+        );
     }
 
     return (
@@ -25,7 +29,7 @@ function App() {
             <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
             <SearchBar />
             <RandomBreedButton />
-            <CaughtBreeds caughtBreeds={caughtBreeds} />
+            <CaughtBreeds />
             <ClearAllButton />
         </Container>
     );

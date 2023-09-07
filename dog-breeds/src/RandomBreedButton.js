@@ -5,10 +5,12 @@ import { RandomBreedButtonContainer } from './styles';
 
 function RandomBreedButton() {
     const dispatch = useDispatch();
+    const token = localStorage.getItem('token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     const handleClick = () => {
         axios
-            .get('https://dog.ceo/api/breeds/image/random')
+            .get('/api/breeds/image/random')
             .then((response) => {
                 const imageUrl = response.data.message;
                 const breed = imageUrl.split('/')[4];

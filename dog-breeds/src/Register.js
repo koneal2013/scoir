@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { LoginContainer, Title, Form, Label, Input, Button } from './styles';
+import { RegisterContainer, Title, Form, Label, Input, Button } from './styles';
 
-function Login({ onLogin }) {
+function Register({ onRegister }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -10,19 +10,18 @@ function Login({ onLogin }) {
         e.preventDefault();
 
         axios
-            .post('http://localhost:8080/login', { username, password })
+            .post('http://localhost:8080/register', { username, password })
             .then((response) => {
-                localStorage.setItem('token', response.data.token);
-                onLogin();
+                onRegister();
             })
             .catch((error) => {
-                console.error('Error logging in:', error);
+                console.error('Error registering user:', error);
             });
     };
 
     return (
-        <LoginContainer>
-            <Title>Login</Title>
+        <RegisterContainer>
+            <Title>Register</Title>
             <Form onSubmit={handleSubmit}>
                 <Label>
                     Username
@@ -32,10 +31,10 @@ function Login({ onLogin }) {
                     Password
                     <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Label>
-                <Button type="submit">Login</Button>
+                <Button type="submit">Register</Button>
             </Form>
-        </LoginContainer>
+        </RegisterContainer>
     );
 }
 
-export default Login;
+export default Register;

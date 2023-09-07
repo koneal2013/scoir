@@ -5,15 +5,17 @@ import { useDispatch } from 'react-redux';
 import { SearchBarContainer, Label, Input, SearchResults, SearchResult } from './styles';
 
 function SearchBar() {
+
     const [searchTerm, setSearchTerm] = useState('');
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
     const [searchResults, setSearchResults] = useState([]);
     const dispatch = useDispatch();
-
+    const token = localStorage.getItem('token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     useEffect(() => {
         if (debouncedSearchTerm) {
             axios
-                .get(`https://dog.ceo/api/breeds/list/all`)
+                .get(`/api/breeds/list/all`)
                 .then((response) => {
                     const breeds = Object.keys(response.data.message);
                     const filteredBreeds = breeds.filter((breed) =>

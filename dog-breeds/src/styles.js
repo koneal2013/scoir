@@ -188,3 +188,36 @@ export const LogoutButton = styled.button`
     background-color: #c82333;
   }
 `;
+
+export const RegisterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+`;
+
+export const Button = styled.button`
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+export const EmptyMessage = styled.p`
+  text-align: center;
+`;

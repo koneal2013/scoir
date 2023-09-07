@@ -1,19 +1,23 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import BreedItem from './BreedItem';
-import { CaughtBreedsContainer, List, ListItem, Title } from './styles';
+import { CaughtBreedsContainer, Title, List, EmptyMessage } from './styles';
+import axios from "axios";
 
-function CaughtBreeds({ caughtBreeds }) {
+function CaughtBreeds() {
+    const caughtBreeds = useSelector((state) => state.caughtBreeds);
+    const token = localStorage.getItem('token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
     return (
         <CaughtBreedsContainer>
             <Title>Caught Breeds</Title>
             {caughtBreeds.length === 0 ? (
-                <p>There are currently no breeds caught. Search above to catch some!</p>
+                <EmptyMessage>There are currently no breeds caught. Search above to catch some!</EmptyMessage>
             ) : (
                 <List>
                     {caughtBreeds.map((breed, index) => (
-                        <ListItem key={index}>
-                            <BreedItem breed={breed} index={index} />
-                        </ListItem>
+                        <BreedItem key={index} breed={breed} index={index} />
                     ))}
                 </List>
             )}

@@ -9,7 +9,7 @@ function BreedItem({ breed, index }) {
 
     useEffect(() => {
         axios
-            .get(`https://dog.ceo/api/breed/${breed}/images/random`)
+            .get(`/api/breed/${breed}/images/random`)
             .then((response) => {
                 setImageUrl(response.data.message);
             })
