@@ -34,7 +34,7 @@ var db *gorm.DB
 
 func main() {
 	// Initialize the database connection
-	dsn := "host=localhost user=postgres password=your_password dbname=dog_catcher port=5432 sslmode=disable TimeZone=UTC"
+	dsn := "host=postgres user=postgres password=your_password dbname=dog_catcher port=5432 sslmode=disable TimeZone=UTC"
 	var err error
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
