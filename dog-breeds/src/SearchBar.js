@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import useDebounce from './useDebounce';
-import { useDispatch } from 'react-redux';
 import { SearchBarContainer, Label, Input, SearchResults, SearchResult } from './styles';
 
 function SearchBar() {
@@ -9,10 +8,9 @@ function SearchBar() {
     const [searchTerm, setSearchTerm] = useState('');
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
     const [searchResults, setSearchResults] = useState([]);
-    const dispatch = useDispatch();
     const token = localStorage.getItem('token');
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    useEffect(() => {
+
         if (debouncedSearchTerm) {
             axios
                 .get(`/api/breeds/list/all`)
@@ -30,10 +28,8 @@ function SearchBar() {
         } else {
             setSearchResults([]);
         }
-    }, [debouncedSearchTerm]);
 
     const handleSearchResultClick = (breed) => {
-        dispatch({ type: 'ADD_BREED', payload: breed });
         setSearchTerm('');
         setSearchResults([]);
     };

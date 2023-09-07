@@ -1,37 +1,28 @@
 import React, { useState } from 'react';
-import Register from './Register';
 import Login from './Login';
-import SearchBar from './SearchBar';
-import RandomBreedButton from './RandomBreedButton';
-import CaughtBreeds from './CaughtBreeds';
-import ClearAllButton from './ClearAllButton';
-import { Container, LogoutButton } from './styles';
+import Register from './Register';
+import MainApp from './MainApp';
+import CaughtBreeds from "./CaughtBreeds";
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [registering, setRegistering] = useState(true);
+    const [showRegister, setShowRegister] = useState(false);
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        setLoggedIn(false);
-    };
+    if (loggedIn) {
+        return (<>
+            <MainApp onLogout={() => setLoggedIn(false)} />
+            <CaughtBreeds loggedIn={loggedIn} />
+        </>);
+    }
 
-    if (!loggedIn) {
-        return registering ? (
-            <Register onRegister={() => setRegistering(false)} />
-        ) : (
-            <Login onLogin={() => setLoggedIn(true)} />
-        );
+    if (showRegister) {
+        return <Register onRegister={() => setShowRegister(false)} />;
     }
 
     return (
-        <Container>
-            <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
-            <SearchBar />
-            <RandomBreedButton />
-            <CaughtBreeds />
-            <ClearAllButton />
-        </Container>
+        <>
+            <Login onLogin={() => setLoggedIn(true)} onShowRegister={() => setShowRegister(true)} />
+        </>
     );
 }
 

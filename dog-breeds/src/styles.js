@@ -126,9 +126,12 @@ export const SearchResult = styled.li`
 
 export const LoginContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100vh;
+  max-width: 300px;
+  margin: 0 auto;
 `;
 
 export const LoginForm = styled.form`
@@ -220,4 +223,20 @@ export const Button = styled.button`
 
 export const EmptyMessage = styled.p`
   text-align: center;
+`;
+
+export const RegisterButton = styled.button`
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: #218838;
+  }
 `;

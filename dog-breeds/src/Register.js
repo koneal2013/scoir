@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { RegisterContainer, Title, Form, Label, Input, Button } from './styles';
+import {toast, ToastContainer} from "react-toastify";
 
 function Register({ onRegister }) {
+    const showErrorToast = (message) => {
+        toast.error(message, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    };
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -16,11 +28,13 @@ function Register({ onRegister }) {
             })
             .catch((error) => {
                 console.error('Error registering user:', error);
+                showErrorToast('Registration failed. User already exists.');
             });
     };
 
     return (
         <RegisterContainer>
+            <ToastContainer />
             <Title>Register</Title>
             <Form onSubmit={handleSubmit}>
                 <Label>

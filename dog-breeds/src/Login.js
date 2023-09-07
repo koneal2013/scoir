@@ -1,8 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { LoginContainer, Title, Form, Label, Input, Button } from './styles';
+import { LoginContainer, LoginForm, Label, Input, LoginButton, RegisterButton } from './styles';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Login({ onLogin }) {
+const showErrorToast = (message) => {
+    toast.error(message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+};
+
+function Login({ onLogin, onShowRegister }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -17,23 +31,31 @@ function Login({ onLogin }) {
             })
             .catch((error) => {
                 console.error('Error logging in:', error);
+                showErrorToast('Login failed. Please check your credentials.');
             });
     };
 
     return (
         <LoginContainer>
-            <Title>Login</Title>
-            <Form onSubmit={handleSubmit}>
-                <Label>
-                    Username
-                    <Input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                </Label>
-                <Label>
-                    Password
-                    <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </Label>
-                <Button type="submit">Login</Button>
-            </Form>
+            <ToastContainer />
+            <LoginForm onSubmit={handleSubmit}>
+                <Label htmlFor="username">Username</Label>
+                <Input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <Label htmlFor="password">Password</Label>
+                <Input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <LoginButton type="submit">Log In</LoginButton>
+            </LoginForm>
+            <RegisterButton onClick={onShowRegister}>Register</RegisterButton>
         </LoginContainer>
     );
 }
